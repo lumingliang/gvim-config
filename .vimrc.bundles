@@ -1,0 +1,293 @@
+
+"主题 solarized
+" Plugin 'altercation/vim-colors-solarized'
+" syntax enable
+" set background=dark
+" "colorscheme solarized
+" let g:solarized_termtrans=1
+" let g:solarized_contrast="normal"
+" let g:solarized_visibility="normal"
+" let g:solarized_termcolors=256
+" Plugin 'tomasr/molokai'
+
+
+
+
+"代码缩进标识插件
+" Plugin 'Yggdroot/indentLine'
+
+"change character color
+let g:indentLine_color_term = 239
+"change indent char
+let g:indentLine_char = 'c'
+"disable by default
+let g:indentLine_enabled = 1 
+":IndentLinesToggle toggles lines on and off.
+
+
+"更高效的移动 [,, + w/fx]
+" Bundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
+" 重复上一次操作, 类似repeat插件, 很强大
+map <Leader><leader>. <Plug>(easymotion-repeat)
+
+" ################### 显示增强 ###################
+
+" 状态栏增强展示
+" 新的airline配置
+" Plugin 'bling/vim-airline'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '|'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+" 是否打开tabline
+" let g:airline#extensions#tabline#enabled = 1
+
+" ################### 快速导航 ###################
+"目录导航
+" Plugin 'scrooloose/nerdtree'
+
+" map mn :NERDTreeToggle<CR>
+
+" let NERDTreeHighlightCursorline=1
+ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+
+" s/v 分屏打开文件
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapOpenVSplit = 'v'
+let g:NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer=1
+let NERDTreeShowBookmarks = 1
+
+" just one nerdtree in tabs!
+" Bundle 'jistr/vim-nerdtree-tabs' 
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_autoclose = 1
+let g:nerdtree_tabs_startup_cd = 1
+let g:nerdtree_tabs_no_startup_for_diff = 1
+map mn :NERDTreeTabsToggle<CR>
+
+" 文件搜索
+" Bundle 'ctrlpvim/ctrlp.vim'
+" "let g:ctrlp_map = '<F1>'
+"let g:ctrlp_map = '<leader>p'
+nnoremap <leader>r :CtrlP<CR>
+" "let g:ctrlp_cmd = 'CtrlP'
+" "打开缓存
+nnoremap <leader>m :CtrlPMRU<CR>
+nnoremap <leader>h :CtrlPMRU<CR> 
+" "打开buffer
+map <leader>b :CtrlPBuffer<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|src|rvm)$',
+    \ 'file': '\v\.(exe|data|eml|pdf|so|min.js|sql|png|txt|lnk|xml|rar|swf|svg|gif|jpg|css|js|map|dll|zip|tar|tar.gz|pyc)$',
+    \ }
+let g:ctrlp_mruf_max=500
+" results:20不用设为很大，模糊匹配会把后面的结果都显示出来
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:20'
+let g:ctrlp_follow_symlinks=1
+let g:ctrlp_use_caching = 1
+let g:ctrlp_max_files = 0
+" let g:ctrlp_open_new_file = 'v'
+
+" 如果在buffer 中已经有了就直接跳到已经打开的
+let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_lazy_update = 1
+
+" Windows下
+" let g:ctrlp_mruf_exclude = '^C:\\dev\\tmp\\.*' 
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_show_hidden = 1
+" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+" 启用当前工作目录为搜索目录，而不是当前文件的目录
+let g:ctrlp_working_path_mode = 'w'
+let g:ctrlp_use_caching = 1 
+" let g:ctrlp_reuse_window = 'netrw'
+" 使用这个配置会报错
+" let ctrlp_open_single_match = 1
+
+
+" Plugin 'd11wtq/ctrlp_bdelete.vim' 
+
+
+" Plugin 'pielgrzym/ctrlp-sessions'
+" Plugin 'ivalkeen/vim-ctrlp-tjump'
+nnoremap <c-]> :CtrlPtjump<cr>
+vnoremap <c-]> :CtrlPtjumpVisual<cr>
+
+
+" Plugin 'wincent/command-t'
+
+" 快速注释
+" Bundle 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims=1
+"[d] shift+v+方向键选中(默认当前行)   ->  ,cc  加上注释  -> ,cu 解开注释
+
+
+
+"自动配对各种括号
+" Bundle 'jiangmiao/auto-pairs'
+"开启飞行模式,飞行模式自动在匹配符号间跳转，用<M-b>可以实现回退和加入()匹配符号
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+"<BS>  : Delete brackets in pair
+"<M-p> : Toggle Autopairs (g:AutoPairsShortcutToggle)
+"<M-e> : Fast Wrap (g:AutoPairsShortcutFastWrap)
+"<M-n> : Jump to next closed pair (g:AutoPairsShortcutJump)
+"<M-b> : BackInsert (g:AutoPairsShortcutBackInsert)
+"常用在对[形式，开飞行模式会跳转，用这个快捷键可以让它退回来并且加入补全]
+"
+" 括号等的添加和删除
+" Plugin 'tpope/vim-surround'
+
+"  'jklk' => jklk  yss'
+"  j => jk ds'
+"'  'jk' => jk cs'<
+"  修改"" 为 ''用cs"'
+" 修改"" 为<q></q> 用 cs"<q  <CR
+" 删除''用 ds'
+" 在jk 前后加入 ''用 ysiw'
+" 在'ttt' wa整个加入<>用 yss<
+
+
+"taglist ,标签导航,还不用，
+" Bundle 'vim-scripts/taglist.vim'
+
+" 标签导航
+" Bundle 'majutsushi/tagbar'
+nnoremap ss :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+let g:tagbar_type_php = {
+    \ 'ctagstype' : 'php',
+    \ 'kinds'     : [
+        \ 'f:functions',
+        \ 'a:arrays',
+        \ 's:strings'
+    \ ]
+\ }
+
+
+" Plugin 'ervandew/supertab'
+
+"session
+" Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-session'
+
+let g:session_autoload = 'yes'
+let g:session_autosave = 'yes'
+let g:session_autosave_silent = 1
+let g:session_default_to_last = 1
+let g:session_directory = $VIM
+let g:session_default_overwrite = 1
+
+" Plugin 'shougo/vimproc.vim'
+" Plugin 'shougo/unite.vim'
+
+" Plugin 'shougo/unite-session'
+" let g:unite_source_session_enable_auto_save = 1	
+" autocmd VimEnter * UniteSessionLoad
+
+" unite配置
+" let g:unite_source_rec_async_command = ['files','-A']
+" nnoremap <leader>r :<C-u>Unite -start-insert file_rec<CR>
+" " nnoremap <leader>r :<C-u>Unite -start-insert file_rec/async:!<CR>
+" "nnoremap <leader>b :<C-u>Unite file buffer<CR>
+" nnoremap <silent> <leader>b :<C-u>Unite buffer bookmark<CR>
+" let g:unite_data_directory = $TEMP.'/vim/unite'
+" let g:unite_source_rec_unit = 30000
+
+" "matcher_project_ignore_files
+" "  递归最少缓存文件
+" let g:unite_source_rec_min_cache_files = 200
+" " 递归最大缓存
+" let g:unite_source_rec_max_cache_files = 30000
+" let g:unite_source_history_yank_enable = 1
+" let g:unite_source_history_yank_limit = 20000
+" " let g:unite_enable_auto_select = 1		
+" " let g:unite_ignore_source_files = ['\..*']
+" let g:unite_source_grep_max_candidates = 50
+" call unite#custom#source('file,file/new,buffer,file_rec', 'matchers', 'matcher_fuzzy')
+
+" call unite#custom#source('file_rec, file_rec/async', 'ignore_parttern', '\.png, \.lock, \.txt, \.out, tags, src/\|image/\|front/\|api/')
+
+" call unite#filters#sorter_default#use(['sorter_rank'])
+" nnoremap <silent> ,g :<C-u>Unite directory:"F:/haitou/vendor/yiisoft"<CR>
+" " <silent>表示静默运行
+" inoremap <silent><expr> <C-s>     unite#do_action('split')
+" inoremap <silent><expr> <C-v>     unite#do_action('vsplit')
+" nnoremap <silent><expr> v     unite#do_action('vsplit')
+" nnoremap <silent><expr> s     unite#do_action('split')
+
+" call unite#custom#profile('default', 'context', { 
+            " \ 'start_insert': 1, 
+            " \ 'smartcase': 1,
+            " \ 'no-empty': 1,
+            " \ 'winheight': 10,
+            " \ 'prompt': ':',
+            " \ 'direction': 'botright'
+            " \ })
+
+" function! s:unite_custom_settings()
+    " nmap <buffer> <ESC> <Plug>(unite_all_exit)
+" endfunction
+
+
+" cs a F:\haitou\cscope.out
+" Plugin 'brookhong/cscope.vim'
+" map <C-g> :cs find g <C-R>=expand("<cword>")<CR>
+" " s: Find this C symbol
+" nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+" " g: Find this definition
+" nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+" " d: Find functions called by this function
+" nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+" " c: Find functions calling this function
+" nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+" " t: Find this text string
+" nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+" " e: Find this egrep pattern
+" nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+" " f: Find this file
+" nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+" " i: Find files #including this file
+" nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+
+
+" vim debug
+" Plugin 'joonty/vdebug'
+" <F5> 运行到结尾或者断点处
+" <F2> 步过一行
+" <F3> 步入函数
+" <F4> 步出函数
+" <F6> 在此处exit
+" <F7> 跳过断点继续运行
+" <F10> 设置或移除断点
+" :VdebugBreakpointWindow
+" 查看断点
+nnoremap <F8> :BreakpointWindow<CR>
+" 删除所有断点
+nnoremap <F9> :BreakpointRemove *<CR>
+" let g:vdebug_options['break_on_open'] = 0
+au GUIEnter * :VdebugOpt break_on_open 0
+
+
+
+" Plugin 'shougo/neocomplete.vim'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#disable_auto_complete = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
